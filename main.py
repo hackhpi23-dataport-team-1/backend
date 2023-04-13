@@ -55,6 +55,14 @@ def analyze(case_id):
         'netname': 'APNIC-LABS',
         'subnet': '1.1.1.1/24'
       }
+    }],
+    'groups': [{
+      'kind': 'host',
+      'label': 'L-123-123',
+      'vertices': ['BCC8A2AC-8850-4C79-88AD-F0B7AD3BDA2B'],
+      'attrs': {
+        'hostname': 'L-123-123'
+      }
     }]
   })
 
