@@ -6,11 +6,25 @@ import csv
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-def moveNS(filepath):
+EVENT_PARSE = 1
+EVENTDATA_PARSE = 2
+
+typeArr = {"Event": EVENT_PARSE, "EventData" : EVENTDATA_PARSE}
+
+def newObject(tag):
+    """
+    given the tag, to decide whether it is a nested element or a new object
+    """
+    if tag in typeArr:
+        return typeArr[tag]
+    else:
+        return None
+    
+def parseElem(filepath):
     """
     given the filepath of a xml file,
     remove all the namespace,
-    return the root node
+    return an array, with each element a dictionary, storing a type 
     -----
     Parameters:
     ------
@@ -19,34 +33,54 @@ def moveNS(filepath):
 
     return:
 
-    - Event:
-    
-    type: Event
-    level: System
-    subdict
+    array of type elements example:
 
-    data: EventData
-    
+    {'type': 'Event', 'System': '\n      ', 'Provider': None, 'EventID': '13', 'Version': '2', 'Level': '4', 'Task': '13', 'Opcode': '0', 'Keywords': '0x8000000000000000', 'TimeCreated': None, 'EventRecordID': '1722721', 'Correlation': None, 'Execution': None, 'Channel': 'Microsoft-Windows-Sysmon/Operational', 'Computer': 'DESKTOP-FPVDM4B', 'Security': None}, {'type': 'EventData', 'RuleName': '-', 'EventType': 'SetValue', 'UtcTime': '2021-09-30 14:34:09.448', 'ProcessGuid': '{de1f7a01-cad9-6155-5200-000000000600}', 'ProcessId': '2292', 'Image': 'C:\\Windows\\system32\\svchost.exe', 'TargetObject': 'HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AppModel\\StateRepository\\Cache\\Activation\\Data\\93\\HostId', 'Details': 'Binary Data'},
 
 
     """ 
-    it = ET.iterparse(filepath,events=("start","end"))
+    it = ET.iterparse(filepath,events=("start",))
+    # it = ET.iterparse(filepath,events=("start","end"))
     # it = ET.parse(filepath)
     # it = it.getroot()
     # it = iter(it)
+    newElem = False
+    parseElemArrs = []
+    parseElem = None
+    currentType = None
     for temp_, el in it:
         prefix, has_namespace, postfix = el.tag.partition('}')
         if has_namespace:
             el.tag = postfix  # strip all namespaces
-        if el.tag == "Event":
-            # event type
+        # check if a new object
+        parseType = newObject(el.tag)
+        if (parseType is not None): 
+            # new element
+            newElem = True
+            currentType = parseType
+            if parseElem is not None:
+                parseElemArrs.append(parseElem)
+            parseElem = dict()
+            # event type event parser
+            parseElem["type"] = el.tag
+        elif parseElem is not None:
+            # already parseElem created
+            if currentType == EVENT_PARSE:
+                parseElem[el.tag] = el.text
+            elif currentType == EVENTDATA_PARSE:
+                parseElem[el.attrib["Name"]] = el.text
 
         for at in list(el.attrib.keys()): # strip namespaces of attributes too
             if '}' in at:
                 newat = at.split('}', 1)[1]
                 el.attrib[newat] = el.attrib[at]
-                del el.attrib[at]       
-    return it.root
+                del el.attrib[at]
+
+    if parseElem is not None:
+        # append the last one
+        parseElemArrs.append(parseElem)
+    return parseElemArrs
+    # return it.root
 
 
 
@@ -69,7 +103,7 @@ def parseTrafo(filepath):
 
 
     ## remove the prefix 
-    root = moveNS(filepath)
+    root = parseElem(filepath)
 
     ## parse the trafo
     trafoDict = {}
@@ -96,4 +130,5 @@ def parseTrafo(filepath):
 
 
 if __name__ == "__main__":
-    moveNS("../exampleData/twoEvents.xml")
+    temp_parseElemArr = parseElem("../exampleData/twoEvents.xml")
+    print(temp_parseElemArr)
