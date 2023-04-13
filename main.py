@@ -1,11 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,  flash, redirect, url_for
 from flask_cors import CORS, cross_origin
 import uuid
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 cors = CORS(app)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'csv', 'xml'}
+app.config['UPLOAD_FOLDER'] = '/uploads'
 
 @app.route('/case', methods=['POST'])
 @cross_origin()
@@ -14,10 +18,23 @@ def create():
   app.logger.info('Case %s created', case_id)
   return jsonify({'case': case_id})
 
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+
 @app.route('/case/<case_id>', methods=['POST'])
 @cross_origin()
 def upload(case_id):
-  return jsonify({'ok': True})
+  file = request.files['file']
+  if file and allowed_file(file.filename):
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename, '_', case_id))
+    return jsonify({'status': 200})
+    
+  return jsonify({'status': 500})
 
 @app.route('/case/<case_id>', methods=['GET'])
 @cross_origin()
