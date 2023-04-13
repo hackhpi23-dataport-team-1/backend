@@ -61,7 +61,8 @@ def analyze(case_id):
       'label': 'L-123-123',
       'vertices': ['BCC8A2AC-8850-4C79-88AD-F0B7AD3BDA2B'],
       'attrs': {
-        'hostname': 'L-123-123'
+        'hostname': 'L-123-123',
+        'ethers': ['9e:09:0e:db:99:6e', '9e:09:0e:db:99:6a']
       }
     }]
   })
