@@ -23,3 +23,22 @@ class Vertex:
     def set_score(self, score):
         self.score = score
 
+
+class Graph:
+    def __init__(self, vertices=[], edges=[]):
+        self.vertices = vertices
+        self.edges = edges
+    
+    def add_vertex(self, vertex):
+        if not vertex.id in [v.id for v in self.vertices]:
+            self.vertices.append(vertex)
+    
+    def add_edge(self, edge):
+        if not edge.id in [e.id for e in self.edges]:
+            self.edges.append(edge)
+
+    def to_dict(self):
+        return {
+            'vertices': [v.__dict__ for v in self.vertices],
+            'edges': [e.__dict__ for e in self.edges]
+        }
