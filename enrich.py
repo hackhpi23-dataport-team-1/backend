@@ -1,10 +1,12 @@
 
 from ipwhois import IPWhois
 from dotenv import load_dotenv
-from datastructures import Vertex, Edge
+from datastructures import Vertex, Edge, Graph
 import hashlib
 import requests
 import os
+from merger import merge_graphs
+from pprint import pprint
 load_dotenv()
 
 def enrich_ip(vertex):
@@ -36,7 +38,7 @@ def enrich_ip(vertex):
         # create edge between IP and ASN
         edge = Edge(source=vertex.id, target=asn_vertex.id, kind='has_asn', attr={'asn': result['asn']})
 
-        return vertex, asn_vertex, edge
+        return Graph([vertex, asn_vertex], [edge])
     except:
         return None
 
@@ -92,10 +94,13 @@ def enrich_file(vertex):
 
 
 # vertex = Vertex(kind='ip', attr = {'ip': '142.251.209.132', 'domain':'google.com'})
-# vertex, asn_vertex, edge = enrich_ip(vertex)
-# pprint(enrich_ip(vertex))
-# print(asn_vertex.__dict__)
+# vertex1 = Vertex(kind='ip', attr = {'ip': '17.253.144.10', 'domain':'apple.com'})
+# graph1 = enrich_ip(vertex)
+# graph2 = enrich_ip(vertex)
+# # pprint(enrich_ip(vertex))
+# # pprint(graph.to_dict())
 
-# pprint(enrich_file('test.py')
+# merged = merge_graphs(graph1, graph2)
 
-#print(check_blocklist('55e02c78e8a0f85fab9f05824647aba712e7b0b7', ssl=True))
+
+# pprint(merged.to_dict())
