@@ -1,19 +1,26 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import uuid
 
 app = Flask(__name__)
+cors = CORS(app)
+
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/case', methods=['POST'])
+@cross_origin()
 def create():
   case_id = str(uuid.uuid4())
   app.logger.info('Case %s created', case_id)
   return jsonify({'case': case_id})
 
 @app.route('/case/<case_id>', methods=['POST'])
+@cross_origin()
 def upload(case_id):
   return jsonify({'ok': True})
 
 @app.route('/case/<case_id>', methods=['GET'])
+@cross_origin()
 def analyze(case_id):
   return jsonify({
     'vertices': [{

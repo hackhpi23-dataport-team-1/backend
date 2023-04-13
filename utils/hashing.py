@@ -6,7 +6,8 @@ def hash_vid(kind, attrs) -> str:
     featuremap = {
         'ip': 'ip',
         'asn': 'asn',
-        'domain': 'name'
+        'domain': 'name',
+        'has_asn': 'asn'
     }
 
     data = attrs[featuremap[kind]]
