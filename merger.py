@@ -5,9 +5,8 @@ from pprint import pprint
 def merge_graphs(graph, subgraph):
     """ 
     Takes a list each containing vertices and a list of edges
-    Creates a new Vertice (in the graph) if it doesn't exist yet
-    Creates new edges if they don't exist yet
-    Adds attributes to existing vertices
+    Creates a new Vertice/Edge (in the graph) if it doesn't exist yet 
+    Otherwise adds attributes to existing elements
     """
 
     # get all ids in graph
