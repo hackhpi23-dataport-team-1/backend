@@ -3,6 +3,8 @@ from ipwhois import IPWhois
 from dotenv import load_dotenv
 from datastructures import Vertex, Edge
 import hashlib
+import requests
+import os
 load_dotenv()
 
 def enrich_ip(vertex):
@@ -14,7 +16,7 @@ def enrich_ip(vertex):
         # extract info and update vertex
         attr = {
             'asn': result['asn'],
-            'malicious': check_blacklist(ip),
+            'malicious': check_blocklist(ip),
         }
         vertex.add_attribute(attr)
         vertex.add_attribute(result['nets'][0])
@@ -39,16 +41,22 @@ def enrich_ip(vertex):
         return None
 
 
-def check_blacklist(input):
+def check_blocklist(input, ssl=False):
     """ Takes a domain or IP address and check if it is blacklisted"""
     try:
-        with open('blocklist/ip_blacklist.txt', 'r') as f:
-            if input in f.readlines():
+        if ssl:
+            if input in open('blocklist/ssl_blacklist.txt').read():
                 return True
-            return False
-    except:
+        else:
+            if input in open('blocklist/ip_blacklist.txt').read():
+                return True
+        return False
+    
+    except: 
         print('Error: Could not open blacklist.txt')
-        return "This is blacklist problem"
+        return None
+
+
 
 def enrich_file(vertex):
     """
@@ -88,4 +96,6 @@ def enrich_file(vertex):
 # pprint(enrich_ip(vertex))
 # print(asn_vertex.__dict__)
 
-# pprint(enrich_file('test.py'))
+# pprint(enrich_file('test.py')
+
+#print(check_blocklist('55e02c78e8a0f85fab9f05824647aba712e7b0b7', ssl=True))
