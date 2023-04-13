@@ -43,14 +43,14 @@ def analyze(case_id):
     'edges': [{
       'from': 'BCC8A2AC-8850-4C79-88AD-F0B7AD3BDA2B',
       'to': 'E0A31FDA-6FC9-4A88-9392-949171C84750',
-      'label': 'udp-connect',
+      'kind': 'udp-connect',
       'attrs': {
         'port': 53
       }
     }, {
       'from': 'E0A31FDA-6FC9-4A88-9392-949171C84750',
       'to': 'AB384E5A-FD88-4EB5-B0C7-69AA7047E99E',
-      'label': 'owned-by',
+      'kind': 'owned-by',
       'attrs': {
         'netname': 'APNIC-LABS',
         'subnet': '1.1.1.1/24'
