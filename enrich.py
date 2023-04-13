@@ -30,7 +30,7 @@ def enrich_ip(vertex):
         }
         asn_vertex = Vertex(kind='asn', attr = asn_attrs)
 
-        return result
+        return [vertex, asn_vertex]
     except:
         return RuntimeError("Error: IPWhois failed to lookup IP")
 

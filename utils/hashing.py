@@ -4,7 +4,7 @@ import hashlib
 
 def hash_vid(kind, attrs) -> str:
     featuremap = {
-        'ip': 'value',
+        'ip': 'ip',
         'asn': 'asn',
         'domain': 'name'
     }
