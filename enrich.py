@@ -38,6 +38,11 @@ def enrich_ip(vertex):
         return RuntimeError("Error: IPWhois failed to lookup IP")
 
 
+def check_blacklist(input):
+    with open('data/blacklist.txt', 'r') as f:
+        if input in f.readlines():
+            return True
+        return False
 
 # vertex = Vertex(kind='ip', attr = {'ip': '142.251.209.132', 'domain':'google.com'})
 # vertex, asn_vertex, edge = enrich_ip(vertex)
