@@ -1,24 +1,32 @@
 from datastructures import Vertex, Edge
-from enrich import enrich_ip
 from pprint import pprint
 
-def merge_graphs(graph, subgraph):
+def merge_graphs(graph1, graph2):
     """ 
-    Takes a list each containing vertices and a list of edges
-    Creates a new Vertice/Edge (in the graph) if it doesn't exist yet 
-    Otherwise adds attributes to existing elements
+    Takes two graphs and merges the second graph into the first
+    Adds missing vertices and edges to the graph.
+    Updates existing vertices and edges with new attributes.
     """
+    if graph2 is None:
+        return graph1
 
-    # get all ids in graph
-    ids = [item.id for item in graph]
-
-    for item in subgraph:
-        if item.id not in ids:
-            graph.append(item)
+    for vertex in graph2.vertices:
+        if not vertex.id in [v.id for v in graph1.vertices]:
+            graph1.add_vertex(vertex)
         else:
-            [item.add_attribute(item.attr) for item_old in graph if item_old.id == item.id]
-    return graph
-
+            for v in graph1.vertices:
+                if v.id == vertex.id:
+                    v.add_attribute(vertex.attr)
+    
+    for edge in graph2.edges:
+        if not edge.id in [e.id for e in graph1.edges]:
+            graph1.add_edge(edge)
+        else:
+            for e in graph1.edges:
+                if e.id == edge.id:
+                    e.add_attribute(edge.attr)
+    
+    return graph1
 
 
 
