@@ -1,11 +1,7 @@
 
 from ipwhois import IPWhois
-import os
 from dotenv import load_dotenv
 from datastructures import Vertex, Edge
-import requests
-import hashlib
-from pprint import pprint
 load_dotenv()
 
 def enrich_ip(vertex):
@@ -17,7 +13,7 @@ def enrich_ip(vertex):
         # extract info and update vertex
         attr = {
             'asn': result['asn'],
-            'in_blacklist': check_blacklist(ip),
+            'malicious': check_blacklist(ip),
         }
         vertex.add_attribute(attr)
         vertex.add_attribute(result['nets'][0])
@@ -35,50 +31,53 @@ def enrich_ip(vertex):
         asn_vertex = Vertex(kind='asn', attr = asn_attrs)
 
         # create edge between IP and ASN
-        edge = Edge(source=vertex.id, target=asn_vertex.id, kind='has_asn')
+        edge = Edge(source=vertex.id, target=asn_vertex.id, kind='has_asn', attr={'asn': result['asn']})
 
         return vertex, asn_vertex, edge
     except:
-        return RuntimeError("Error: IPWhois failed to lookup IP")
+        return None
 
 
 def check_blacklist(input):
     """ Takes a domain or IP address and check if it is blacklisted"""
-    with open('data/blacklist.txt', 'r') as f:
-        if input in f.readlines():
-            return True
-        return False
+    try:
+        with open('data/blacklist.txt', 'r') as f:
+            if input in f.readlines():
+                return True
+            return False
+    except:
+        print('Error: Could not open blacklist.txt')
+        return "This is blacklist problem"
+# def enrich_file(vertex):
+#     """
+#     makes a request to the VirusTotal API to get file info and adds
+#     VT_API_KEY as x-apikey to the header
+#     """
+#     file = vertex.attr['file']
+#     # hash file with MD5
+#     hash = hashlib.md5(file.encode('utf-8')).hexdigest()
 
-def enrich_file(vertex):
-    """
-    makes a request to the VirusTotal API to get file info and adds
-    VT_API_KEY as x-apikey to the header
-    """
-    file = vertex.attr['file']
-    # hash file with MD5
-    hash = hashlib.md5(file.encode('utf-8')).hexdigest()
+#     # make request to VirusTotal API
+#     url = 'https://www.virustotal.com/api/v3/files/{hash}'.format(hash=hash)
+#     headers = {
+#         'x-apikey': os.getenv('VT_API_KEY')
+#     }
+#     response = requests.get(url, headers=headers)
 
-    # make request to VirusTotal API
-    url = 'https://www.virustotal.com/api/v3/files/{hash}'.format(hash=hash)
-    headers = {
-        'x-apikey': os.getenv('VT_API_KEY')
-    }
-    response = requests.get(url, headers=headers)
-
-    # extract info and update vertex
-    response_json = response.json()
-    result = response_json['data']['attributes']['last_analysis_results']
-    attrs = {'malicious': False }
-    # check if in any result dict is a 'result' not none
-    for key, value in result.items():
-        if value['result'] != None:
-            attrs = {
-                'malicious': True,
-                'malware_detect': key,
-                'malware_result': value
-            }
-    vertex.update(attrs)
-    return vertex
+#     # extract info and update vertex
+#     response_json = response.json()
+#     result = response_json['data']['attributes']['last_analysis_results']
+#     attrs = {'malicious': False }
+#     # check if in any result dict is a 'result' not none
+#     for key, value in result.items():
+#         if value['result'] != None:
+#             attrs = {
+#                 'malicious': True,
+#                 'malware_detect': key,
+#                 'malware_result': value
+#             }
+#     vertex.update(attrs)
+#     return vertex
 
 
 
