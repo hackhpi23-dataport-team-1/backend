@@ -6,14 +6,14 @@ from enrich import enrich_ip, check_blocklist
 
 vertex = Vertex(kind='ip', attr = {'ip': '142.251.209.132', 'domain':'google.com'})
 vertex1 = Vertex(kind='ip', attr = {'ip': '17.253.144.10', 'domain':'apple.com'})
-graph = [vertex, vertex1]
+graph1 = enrich_ip(vertex)
+graph2 = enrich_ip(vertex1)
 
-graph_update = merge_graphs(graph, enrich_ip(vertex))
+merged1 = merge_graphs(graph1, graph2)
 
 
-assert graph_update[0].attr['asn'] == '15169'
-assert graph_update[1].attr['ip'] == '17.253.144.10'
-assert len(graph_update) == 4
+assert len(merged1.vertices) == 4
+assert len(merged1.edges) == 2
 
 
 mal_ip = 'http://makeupuccino.com/purveyance.php'

@@ -1,5 +1,3 @@
-from datastructures import Vertex, Edge
-from pprint import pprint
 
 def merge_graphs(graph1, graph2):
     """ 
