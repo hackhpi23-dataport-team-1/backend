@@ -1,7 +1,7 @@
 
 from ipwhois import IPWhois
 import socket
-from datastructures import Vertex
+from datastructures import Vertex, Edge
 from pprint import pprint
 
 
@@ -30,11 +30,16 @@ def enrich_ip(vertex):
         }
         asn_vertex = Vertex(kind='asn', attr = asn_attrs)
 
-        return [vertex, asn_vertex]
+        # create edge between IP and ASN
+        edge = Edge(source=vertex.id, target=asn_vertex.id, kind='has_asn')
+
+        return vertex, asn_vertex, edge
     except:
         return RuntimeError("Error: IPWhois failed to lookup IP")
 
 
 
-vertex = Vertex(kind='ip', attr = {'ip': '142.251.209.132', 'domain':'google.com'})
-pprint(enrich_ip(vertex))
+# vertex = Vertex(kind='ip', attr = {'ip': '142.251.209.132', 'domain':'google.com'})
+# vertex, asn_vertex, edge = enrich_ip(vertex)
+# pprint(enrich_ip(vertex))
+# print(asn_vertex.__dict__)
