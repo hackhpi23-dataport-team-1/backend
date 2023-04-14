@@ -4,7 +4,7 @@ from datastructures import Vertex, Edge, Graph
 def parse(path):
     graph = Graph([], [])
 
-    file = open('emotet_sample.xml', 'r')
+    file = open(path, 'r')
     lines = file.readlines()
     for line in lines:
         root = ET.ElementTree(ET.fromstring(line.replace(" xmlns='http://schemas.microsoft.com/win/2004/08/events/event'", '')))
