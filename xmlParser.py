@@ -98,5 +98,20 @@ def parse(path):
             graph.add_vertex(from_vtx)
             graph.add_vertex(to_vtx)
             graph.add_edge(Edge(from_vtx, to_vtx, 'create'))
+        elif eid == 12:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('key', {
+                'TargetObject': attrs['TargetObject']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            if attrs['EventType'] == 'CreateKey':
+                graph.add_edge(Edge(from_vtx, to_vtx, 'create-key'))
+            else:
+                graph.add_edge(Edge(from_vtx, to_vtx, 'delete-key'))
 
     return path

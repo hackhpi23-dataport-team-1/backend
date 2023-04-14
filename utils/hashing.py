@@ -13,13 +13,16 @@ def hash_vid(kind, attrs) -> str:
         "file" : "TargetFilename",
         "dns" : "dns",
         'NetworkConnect': 'process',
+        'key': 'TargetObject',
 
         'set-created': 'identity',
         'spawn': 'identity',
         'connect': 'identity',
         'load': 'identity',
         'remote-thread': 'identity',
-        'create': 'identity'
+        'create': 'identity',
+        'create-key': 'identity',
+        'delete-key': 'identity'
     }
 
     data = attrs[featuremap[kind]]
