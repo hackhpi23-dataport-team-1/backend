@@ -8,13 +8,15 @@ def hash_vid(kind, attrs) -> str:
         'asn': 'asn',
         'domain': 'name',
         'has_asn': 'asn',
-        "process": "process",
+        "process": "ProcessGuid",
         "Dummy" : "Dummy",
         "create" : "create",
-        "file" : "file",
+        "file" : "TargetFilename",
         "dns" : "dns",
         'NetworkConnect': 'process',
         'create': 'level',
+
+        'set-created': 'identity'
     }
 
     data = attrs[featuremap[kind]]

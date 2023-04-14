@@ -38,7 +38,7 @@ class Edge:
         self.target = target
         self.kind = kind
         self.attr = attr
-        self.id = hash_vid(kind, attr)
+        self.id = hash_vid(kind, {'identity': self.source.id + self.target.id})
 
     def add_attribute(self, dict):
         self.attr.update(dict)
