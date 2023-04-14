@@ -1,0 +1,419 @@
+{
+  "vertices": [
+    {
+      "id": "3cf77f807b9e3a4b00a899913b52c30a",
+      "kind": "process",
+      "score": null,
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_NETWORK_CONNECT",
+          "value": "3",
+          "level": "Informational",
+          "template": "Network connection detected",
+          "rulename": "NetworkConnect",
+          "version": "5"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "Image": null,
+        "User": null,
+        "Protocol": null,
+        "Initiated": null,
+        "SourceIsIpv6": null,
+        "SourceIp": null,
+        "SourceHostname": null,
+        "SourcePort": null,
+        "SourcePortName": null,
+        "DestinationIsIpv6": null,
+        "DestinationIp": null,
+        "DestinationHostname": null,
+        "DestinationPort": null,
+        "DestinationPortName": null
+      }
+    },
+    {
+      "id": "8d38dcfa195271efdac06033ed4d7472",
+      "kind": "ip",
+      "score": null,
+      "attr": {
+        "SourceIp": null,
+        "SourceHostname": null,
+        "SourcePort": null,
+        "SourcePortName": null
+      }
+    },
+    {
+      "id": "5e72519e1537bf6a5a06c1fa0e612afa",
+      "kind": "ip",
+      "score": null,
+      "attr": {
+        "DestinationIp": null,
+        "DestinationHostname": null,
+        "DestinationPort": null,
+        "DestinationPortName": null
+      }
+    },
+    {
+      "id": "dde8f229bf9223f8cbc5b66014e0535d",
+      "kind": "process",
+      "score": null,
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_FILE_CREATE",
+          "value": "11",
+          "level": "Informational",
+          "template": "File created",
+          "rulename": "FileCreate",
+          "ruledefault": "exclude",
+          "version": "2"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "Image": null,
+        "TargetFilename": null,
+        "CreationUtcTime": null,
+        "User": null
+      }
+    },
+    {
+      "id": "d0f92ad330f72c0313c5d261bbbd33a8",
+      "kind": "file",
+      "score": null,
+      "attr": { "filename": null, "CreationUtcTime": null, "User": null }
+    },
+    {
+      "id": "a6116380c6996d4f8e9dabe66e7962be",
+      "kind": "process",
+      "score": null,
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_FILE_CREATE_STREAM_HASH",
+          "value": "15",
+          "level": "Informational",
+          "template": "File stream created",
+          "rulename": "FileCreateStreamHash",
+          "ruledefault": "exclude",
+          "version": "2"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "Image": null,
+        "TargetFilename": null,
+        "CreationUtcTime": null,
+        "Hash": null,
+        "Contents": null,
+        "User": null
+      }
+    },
+    {
+      "id": "992a7a3026a4f3a4a93ef101cff5eceb",
+      "kind": "process",
+      "score": null,
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_DNS_QUERY",
+          "value": "22",
+          "level": "Informational",
+          "template": "Dns query",
+          "rulename": "DnsQuery",
+          "ruledefault": "exclude",
+          "version": "5"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "QueryName": null,
+        "QueryStatus": null,
+        "QueryResults": null,
+        "Image": null,
+        "User": null
+      }
+    },
+    {
+      "id": "d0f92ad330f72c0313c5d261bbbd33a8",
+      "kind": "file",
+      "score": null,
+      "attr": { "filename": null, "CreationUtcTime": null, "User": null }
+    }
+  ],
+  "edges": [
+    {
+      "source": {
+        "id": "8d38dcfa195271efdac06033ed4d7472",
+        "kind": "ip",
+        "score": null,
+        "attr": {
+          "SourceIp": null,
+          "SourceHostname": null,
+          "SourcePort": null,
+          "SourcePortName": null
+        }
+      },
+      "target": {
+        "id": "5e72519e1537bf6a5a06c1fa0e612afa",
+        "kind": "ip",
+        "score": null,
+        "attr": {
+          "DestinationIp": null,
+          "DestinationHostname": null,
+          "DestinationPort": null,
+          "DestinationPortName": null
+        }
+      },
+      "kind": "Dummy",
+      "attr": {
+        "SourceIp": null,
+        "SourceHostname": null,
+        "SourcePort": null,
+        "SourcePortName": null,
+        "DestinationIp": null,
+        "DestinationHostname": null,
+        "DestinationPort": null,
+        "DestinationPortName": null
+      },
+      "id": "2413bb7114c318ac56b146a867454b63"
+    },
+    {
+      "source": {
+        "id": "3cf77f807b9e3a4b00a899913b52c30a",
+        "kind": "process",
+        "score": null,
+        "attr": {
+          "attrib": {
+            "name": "SYSMONEVENT_NETWORK_CONNECT",
+            "value": "3",
+            "level": "Informational",
+            "template": "Network connection detected",
+            "rulename": "NetworkConnect",
+            "version": "5"
+          },
+          "RuleName": null,
+          "UtcTime": null,
+          "ProcessGuid": null,
+          "ProcessId": null,
+          "Image": null,
+          "User": null,
+          "Protocol": null,
+          "Initiated": null,
+          "SourceIsIpv6": null,
+          "SourceIp": null,
+          "SourceHostname": null,
+          "SourcePort": null,
+          "SourcePortName": null,
+          "DestinationIsIpv6": null,
+          "DestinationIp": null,
+          "DestinationHostname": null,
+          "DestinationPort": null,
+          "DestinationPortName": null
+        }
+      },
+      "target": {
+        "id": "8d38dcfa195271efdac06033ed4d7472",
+        "kind": "ip",
+        "score": null,
+        "attr": {
+          "SourceIp": null,
+          "SourceHostname": null,
+          "SourcePort": null,
+          "SourcePortName": null
+        }
+      },
+      "kind": "create",
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_NETWORK_CONNECT",
+          "value": "3",
+          "level": "Informational",
+          "template": "Network connection detected",
+          "rulename": "NetworkConnect",
+          "version": "5"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "Image": null,
+        "User": null,
+        "Protocol": null,
+        "Initiated": null,
+        "SourceIsIpv6": null,
+        "SourceIp": null,
+        "SourceHostname": null,
+        "SourcePort": null,
+        "SourcePortName": null,
+        "DestinationIsIpv6": null,
+        "DestinationIp": null,
+        "DestinationHostname": null,
+        "DestinationPort": null,
+        "DestinationPortName": null
+      },
+      "id": "3cf77f807b9e3a4b00a899913b52c30a"
+    },
+    {
+      "source": {
+        "id": "3cf77f807b9e3a4b00a899913b52c30a",
+        "kind": "process",
+        "score": null,
+        "attr": {
+          "attrib": {
+            "name": "SYSMONEVENT_NETWORK_CONNECT",
+            "value": "3",
+            "level": "Informational",
+            "template": "Network connection detected",
+            "rulename": "NetworkConnect",
+            "version": "5"
+          },
+          "RuleName": null,
+          "UtcTime": null,
+          "ProcessGuid": null,
+          "ProcessId": null,
+          "Image": null,
+          "User": null,
+          "Protocol": null,
+          "Initiated": null,
+          "SourceIsIpv6": null,
+          "SourceIp": null,
+          "SourceHostname": null,
+          "SourcePort": null,
+          "SourcePortName": null,
+          "DestinationIsIpv6": null,
+          "DestinationIp": null,
+          "DestinationHostname": null,
+          "DestinationPort": null,
+          "DestinationPortName": null
+        }
+      },
+      "target": {
+        "id": "5e72519e1537bf6a5a06c1fa0e612afa",
+        "kind": "ip",
+        "score": null,
+        "attr": {
+          "DestinationIp": null,
+          "DestinationHostname": null,
+          "DestinationPort": null,
+          "DestinationPortName": null
+        }
+      },
+      "kind": "create",
+      "attr": {
+        "attrib": {
+          "name": "SYSMONEVENT_NETWORK_CONNECT",
+          "value": "3",
+          "level": "Informational",
+          "template": "Network connection detected",
+          "rulename": "NetworkConnect",
+          "version": "5"
+        },
+        "RuleName": null,
+        "UtcTime": null,
+        "ProcessGuid": null,
+        "ProcessId": null,
+        "Image": null,
+        "User": null,
+        "Protocol": null,
+        "Initiated": null,
+        "SourceIsIpv6": null,
+        "SourceIp": null,
+        "SourceHostname": null,
+        "SourcePort": null,
+        "SourcePortName": null,
+        "DestinationIsIpv6": null,
+        "DestinationIp": null,
+        "DestinationHostname": null,
+        "DestinationPort": null,
+        "DestinationPortName": null
+      },
+      "id": "3cf77f807b9e3a4b00a899913b52c30a"
+    },
+    {
+      "source": {
+        "id": "dde8f229bf9223f8cbc5b66014e0535d",
+        "kind": "process",
+        "score": null,
+        "attr": {
+          "attrib": {
+            "name": "SYSMONEVENT_FILE_CREATE",
+            "value": "11",
+            "level": "Informational",
+            "template": "File created",
+            "rulename": "FileCreate",
+            "ruledefault": "exclude",
+            "version": "2"
+          },
+          "RuleName": null,
+          "UtcTime": null,
+          "ProcessGuid": null,
+          "ProcessId": null,
+          "Image": null,
+          "TargetFilename": null,
+          "CreationUtcTime": null,
+          "User": null
+        }
+      },
+      "target": {
+        "id": "d0f92ad330f72c0313c5d261bbbd33a8",
+        "kind": "file",
+        "score": null,
+        "attr": { "filename": null, "CreationUtcTime": null, "User": null }
+      },
+      "kind": "create",
+      "attr": { "filename": null, "CreationUtcTime": null, "User": null },
+      "id": "d0f92ad330f72c0313c5d261bbbd33a8"
+    },
+    {
+      "source": {
+        "id": "992a7a3026a4f3a4a93ef101cff5eceb",
+        "kind": "process",
+        "score": null,
+        "attr": {
+          "attrib": {
+            "name": "SYSMONEVENT_DNS_QUERY",
+            "value": "22",
+            "level": "Informational",
+            "template": "Dns query",
+            "rulename": "DnsQuery",
+            "ruledefault": "exclude",
+            "version": "5"
+          },
+          "RuleName": null,
+          "UtcTime": null,
+          "ProcessGuid": null,
+          "ProcessId": null,
+          "QueryName": null,
+          "QueryStatus": null,
+          "QueryResults": null,
+          "Image": null,
+          "User": null
+        }
+      },
+      "target": {
+        "id": "35ef69a729d5b6a152ff86486b74a752",
+        "kind": "dns",
+        "score": null,
+        "attr": {
+          "QueryName": null,
+          "QueryStatus": null,
+          "QueryResults": null,
+          "Image": null,
+          "User": null
+        }
+      },
+      "kind": "create",
+      "attr": {
+        "QueryName": null,
+        "QueryStatus": null,
+        "QueryResults": null,
+        "Image": null,
+        "User": null
+      },
+      "id": "35ef69a729d5b6a152ff86486b74a752"
+    }
+  ]
+}
