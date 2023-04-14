@@ -4,7 +4,7 @@ from datastructures import Vertex, Edge, Graph
 def parse(path):
     graph = Graph([], [])
 
-    file = open(path, 'r')
+    file = open('emotet_sample.xml', 'r')
     lines = file.readlines()
     for line in lines:
         root = ET.ElementTree(ET.fromstring(line.replace(" xmlns='http://schemas.microsoft.com/win/2004/08/events/event'", '')))
@@ -21,7 +21,17 @@ def parse(path):
         edges = []
 
         if eid == 1:
-            graph.add_vertex(Vertex('process', attrs))
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ParentProcessGuid'],
+                'Image': attrs['ParentImage']
+            })
+            to_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'spawn'))
         elif eid == 2:
             from_vtx = Vertex('process', {
                 'ProcessGuid': attrs['ProcessGuid'],
@@ -34,4 +44,16 @@ def parse(path):
             graph.add_vertex(from_vtx)
             graph.add_vertex(to_vtx)
             graph.add_edge(Edge(from_vtx, to_vtx, 'set-created'))
+        elif eid == 3:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('ip', {
+                'ip': attrs['DestinationIp']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'connect'))
     return path

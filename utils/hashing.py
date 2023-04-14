@@ -16,7 +16,9 @@ def hash_vid(kind, attrs) -> str:
         'NetworkConnect': 'process',
         'create': 'level',
 
-        'set-created': 'identity'
+        'set-created': 'identity',
+        'spawn': 'identity',
+        'connect': 'identity'
     }
 
     data = attrs[featuremap[kind]]
