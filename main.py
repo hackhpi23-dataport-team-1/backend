@@ -33,7 +33,7 @@ def upload(case_id):
   file = request.files['file']
   if file and allowed_file(file.filename):
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], case_id + '_' + filename))
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], case_id ))
     return jsonify({'status': 200})
     
   return jsonify({'status': 500})
@@ -42,7 +42,8 @@ def upload(case_id):
 @cross_origin()
 def analyze(case_id):
   # get data with case_id
-  with open('uploads/1_upload_test.txt', 'r') as f:
+  url = os.path.join(app.config['UPLOAD_FOLDER'], case_id )
+  with open(url, 'r') as f:
     data = f.read()
   
   # analyze data
