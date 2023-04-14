@@ -17,9 +17,14 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 EVENT_PARSE = 1
 EVENTDATA_PARSE = 2
 
-encodingRule = "utf-16-le"
+# encodingRule = "utf-16-le"
+encodingRule = "utf8"
 
-typeArr = {"event": EVENT_PARSE, "EventData" : EVENTDATA_PARSE}
+
+typeArr = {"Event": EVENT_PARSE, "EventData" : EVENTDATA_PARSE}
+eventID_to_Name = {"3" : "SYSMONEVENT_NETWORK_CONNECT", "11": "SYSMONEVENT_FILE_CREATE", "12" : "SYSMONEVENT_REG_KEY", "13":"SYSMONEVENT_REG_SETVALUE" ,"22" : "SYSMONEVENT_DNS_QUERY"}
+
+support_eventIDArrs = eventID_to_Name.keys()
 # typeArr = {"Event": EVENT_PARSE, "EventData" : EVENTDATA_PARSE}
 
 def newObject(tag):
@@ -52,7 +57,7 @@ def addRoot(filepath):
     add root element for xml file
     """
     addRoot = True
-    convertWinToUnix(filepath)
+    # convertWinToUnix(filepath)
     # with open(filepath, encoding="utf8", errors='ignore') as f:
     with open(filepath, encoding=encodingRule) as f:
         first_line = f.readline()
@@ -132,6 +137,7 @@ def parseElem(filepath):
     if parseElem is not None:
         # append the last one
         parseElemArrs.append(parseElem)
+        parseElem = None
     return parseElemArrs
     # return it.root
 
@@ -139,17 +145,71 @@ def parseEvent(parseElemArrs):
     """
     given the array of parsed elements from xml, extract information for graph building
     """
+    vertices = []
+    edges = []    
     for elemDict in parseElemArrs:
         if elemDict["type"] == "Event":
             # new event
-            eventType = elemDict["EventID"]
+            eventID = elemDict["EventID"]
+            parseFurther = False
+            if eventID in support_eventIDArrs:
+                process_name = eventID_to_Name[eventID]
+                processNode = Vertex("process", {'process': process_name})
+                processNode.add_attribute(elemDict)
+                vertices.append(processNode)
+                parseFurther = True
+        if parseFurther and (elemDict["type"] == "EventData"):
+            if eventID == '1':
+                pass
+            elif eventID == "3":
+                # network connection
+                SrcEntityAttr = {"ip": elemDict["SourceIp"],"SourceHostname": elemDict["SourceHostname"],"SourcePort": elemDict["SourcePort"], "SourcePortName" : elemDict["SourcePortName"]}
+                DestEntityAttr = {"ip": elemDict["DestinationIp"],"DestinationHostname": elemDict["DestinationHostname"],"DestinationPort": elemDict["DestinationPort"], "DestinationPortName" : elemDict["DestinationPortName"]}
+                # if they don't exist, create them randomly for mocking
+                if SrcEntityAttr['ip'] == None:
+                    SrcEntityAttr['ip'] = socket.inet_ntoa(struct.pack('>I', random.randint(1, 0xffffffff)))
+                if DestEntityAttr['ip'] == None:
+                    DestEntityAttr['ip'] = socket.inet_ntoa(struct.pack('>I', random.randint(1, 0xffffffff)))
+                
 
-        if elemDict["type"] == "EventData":
-            if eventType == '1':
-                pass
-            elif eventType == "11":
-                # create process 
-                pass
+                # create two vertices
+                srcNode = Vertex("ip", SrcEntityAttr)
+                destNode = Vertex("ip", DestEntityAttr)
+                vertices.append(srcNode)
+                vertices.append(destNode)
+
+                # create edges
+                protocolName = elemDict["Protocol"]
+                protocolEdge = Edge(srcNode, destNode, process_name,  {'process': process_name})
+                edges.append(protocolEdge)
+                # connect process to the internet ids
+                processSrcEdge = Edge(processNode, srcNode, "create", {'level': elemDict['attrib']['level']})
+                processDestEdge = Edge(processNode, destNode, "create",  {'level': elemDict['attrib']['level']})
+                edges.append(processSrcEdge)
+                edges.append(processDestEdge)   
+
+            elif eventID == "11":
+                # file create
+                # create a new vertex file
+                fileAttr = {"filename" : elemDict["TargetFilename"], "CreationUtcTime" : elemDict["CreationUtcTime"],"User": elemDict["User"]}
+
+                pprint(elemDict)
+
+                fileNode = Vertex("file", fileAttr)
+                vertices.append(fileNode)
+                # connect edge
+                createEdge = Edge(processNode, fileNode, "create", fileAttr)
+                edges.append(createEdge)
+            elif eventID == "22":
+                # DNS event
+                dnsAttr = {"QueryName" : elemDict["QueryName"], "QueryStatus" : elemDict["QueryStatus"], "QueryResults": elemDict["QueryResults"], "Image" : elemDict["Image"], "User" : elemDict["User"]}
+                
+                dnsNode = Vertex("dns", dnsAttr)
+                vertices.append(fileNode)
+                createEdge = Edge(processNode, dnsNode, "create", dnsAttr)
+                edges.append(createEdge)                     
+    g = Graph(vertices, edges)
+    return g                
 
 
 def parseElem2(filepath):
@@ -269,22 +329,26 @@ def parseEvent2(parseElemArrs):
 
 def parse(path):
     try:
-        temp_parseElemArr = parseElem2(path)
-        g = parseEvent2(temp_parseElemArr)
+        # temp_parseElemArr = parseElem2(path)
+        # g = parseEvent2(temp_parseElemArr)
+        temp_parseElemArr = parseElem(path)
+        g = parseEvent(temp_parseElemArr)
         return g
     except:
         return None
 
 if __name__ == "__main__":
-    # temp_parseElemArr = parseElem("../exampleData/twoEvents.xml")
+    # temp_parseElemArr = parseElem("exampleData/twoEvents.xml")
+    temp_parseElemArr = parseElem("exampleData/subset_sample.xml")
+    print(temp_parseElemArr)
     # temp_parseElemArr = parseElem("../exampleData/twoEvents_orig.xml")
     # temp_parseElemArr = parseElem("exampleData/temp.xml")
-    temp_parseElemArr = parseElem2("exampleData/newEvent.xml")
+    # temp_parseElemArr = parseElem2("exampleData/newEvent.xml")
 
-    g = parseEvent2(temp_parseElemArr)
+    g = parseEvent(temp_parseElemArr)
     # temp_parseElemArr = parseElem2("exampleData/schema.xml")
     # write to file
-    with open("db/newEvent.json", "w") as f:
+    with open("db/twoEvents.json", "w") as f:
         json_f = json.dumps(g, default=lambda x: x.__dict__)
         f.write(json_f)
 

@@ -1,3 +1,4 @@
+<Root>
 <events>
     <event name="SYSMONEVENT_NETWORK_CONNECT" value="3" level="Informational" template="Network connection detected" rulename="NetworkConnect" version="5">
         <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
@@ -53,3 +54,4 @@
     <data name="User" inType="win:UnicodeString" outType="xs:string" />
     </event>    
 </events>
+</Root>

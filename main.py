@@ -68,7 +68,7 @@ def analyze(case_id):
   
   for filename in filenames:
     with open(os.path.join(app.config['UPLOAD_FOLDER'], case_id + '_' + filename), 'r') as f:
-      data = "exampleData/newEvent.xml"
+      data = "exampleData/" + filename
 
   # analyze data
   graph = parse(data)
