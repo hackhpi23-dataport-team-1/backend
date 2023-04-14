@@ -27,7 +27,8 @@ def hash_vid(kind, attrs) -> str:
         'rename-key': 'identity',
         'create-pipe': 'identity',
         'connect-pipe': 'identity',
-        'resolves': 'identity'
+        'resolves': 'identity',
+        'delete': 'identity'
     }
 
     data = attrs[featuremap[kind]]

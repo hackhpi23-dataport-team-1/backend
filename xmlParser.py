@@ -173,6 +173,17 @@ def parse(path):
             graph.add_vertex(from_vtx)
             graph.add_vertex(to_vtx)
             graph.add_edge(Edge(from_vtx, to_vtx, 'resolves'))
+        elif eid == 26 or eid == 23:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('file', {
+                'TargetFilename': attrs['TargetFilename']
+            })
 
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'delete'))
 
     return graph
