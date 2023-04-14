@@ -125,5 +125,54 @@ def parse(path):
             graph.add_vertex(from_vtx)
             graph.add_vertex(to_vtx)
             graph.add_edge(Edge(from_vtx, to_vtx, 'set-key'))
+        elif eid == 14:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('key', {
+                'TargetObject': attrs['TargetObject']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'rename-key'))
+        elif eid == 17:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('pipe', {
+                'PipeName': attrs['PipeName']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'create-pipe'))
+        elif eid == 18:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('pipe', {
+                'PipeName': attrs['PipeName']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'connect-pipe'))
+        elif eid == 22:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('domain', {
+                'QueryName': attrs['QueryName']
+            })
+
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'resolves'))
+
 
     return graph

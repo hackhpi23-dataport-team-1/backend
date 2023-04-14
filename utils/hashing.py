@@ -6,14 +6,14 @@ def hash_vid(kind, attrs) -> str:
     featuremap = {
         'ip': 'ip',
         'asn': 'asn',
-        'domain': 'name',
         'has_asn': 'asn',
         "process": "ProcessGuid",
         "Dummy" : "Dummy",
         "file" : "TargetFilename",
-        "dns" : "dns",
         'NetworkConnect': 'process',
         'key': 'TargetObject',
+        'pipe': 'PipeName',
+        'domain': 'QueryName',
 
         'set-created': 'identity',
         'spawn': 'identity',
@@ -23,7 +23,11 @@ def hash_vid(kind, attrs) -> str:
         'create': 'identity',
         'create-key': 'identity',
         'delete-key': 'identity',
-        'set-key': 'identity'
+        'set-key': 'identity',
+        'rename-key': 'identity',
+        'create-pipe': 'identity',
+        'connect-pipe': 'identity',
+        'resolves': 'identity'
     }
 
     data = attrs[featuremap[kind]]
