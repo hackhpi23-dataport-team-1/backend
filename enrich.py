@@ -9,6 +9,23 @@ from merger import merge_graphs
 from pprint import pprint
 load_dotenv()
 
+def enrich(graph):
+    ip_vertices = [v for v in graph.vertices if v.kind == 'ip']
+    file_vertices = [v for v in graph.vertices if v.kind == 'file']
+
+    for vertex in ip_vertices:
+        enriched = enrich_ip(vertex)
+        merge_graphs(g, enriched)
+
+    # enrich file vertices
+    for vertex in file_vertices:
+        enriched = enrich_file(vertex)
+        merge_graphs(g, enriched)
+
+    return graph
+
+    
+
 def enrich_ip(vertex):
     ip = vertex.attr['ip']
     try:

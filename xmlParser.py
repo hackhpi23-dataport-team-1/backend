@@ -2,7 +2,10 @@ import xml.etree.ElementTree as ET
 # from lxml import etree
 from io import StringIO
 import sys,os
+from pprint import pprint
 import csv
+import json
+import _pickle as pickle
 
 from datastructures import *
 
@@ -251,12 +254,25 @@ def parseEvent2(parseElemArrs):
             edges.append(createEdge)
     g = Graph(vertices, edges)
     return g
+
+def parse(path):
+    try:
+        temp_parseElemArr = parseElem2(path)
+        g = parseEvent2(temp_parseElemArr)
+        return g
+    except:
+        return None
+
 if __name__ == "__main__":
     # temp_parseElemArr = parseElem("../exampleData/twoEvents.xml")
     # temp_parseElemArr = parseElem("../exampleData/twoEvents_orig.xml")
     # temp_parseElemArr = parseElem("exampleData/temp.xml")
     temp_parseElemArr = parseElem2("exampleData/newEvent.xml")
+
     g = parseEvent2(temp_parseElemArr)
     # temp_parseElemArr = parseElem2("exampleData/schema.xml")
+    # write to file
+    with open("db/newEvent.json", "w") as f:
+        json_f = json.dumps(g, default=lambda x: x.__dict__)
+        f.write(json_f)
 
-    print(temp_parseElemArr)
