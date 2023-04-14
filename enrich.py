@@ -20,7 +20,7 @@ def enrich(graph: Graph):
     # enrich file vertices
     for vertex in file_vertices:
         enriched = enrich_file(vertex)
-        merge_graphs(g, enriched)
+        merge_graphs(graph, enriched)
 
     return graph
 
