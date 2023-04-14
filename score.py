@@ -9,11 +9,11 @@ def get_score(vertex: Vertex):
         
 
     featuremap = {
-        'ip': 10,
+        'ip': random.randint(20, 30),
         'asn': 20,
-        'domain': 30,
+        'domain': 40,
         'has_asn': 40,
-        "process": 35,
+        "process": 50,
         "create" : 45,
         "file" : random.randint(10, 30),
         "dns" : 55,
