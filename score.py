@@ -5,6 +5,24 @@ def get_score(vertex: Vertex):
     if 'malicious' in vertex.attr:
         if vertex.attr['malicious'] == True:
              return 100
+        
+
+    featuremap = {
+        'ip': 10,
+        'asn': 20,
+        'domain': 30,
+        'has_asn': 40,
+        "process": 35,
+        "Dummy" : 5,
+        "create" : 45,
+        "file" : 50,
+        "dns" : 55,
+        'NetworkConnect': 60,
+        'create': 65,
+    }
+
+    if vertex.kind in featuremap:
+        return featuremap[vertex.kind]
 
     return 0
 
