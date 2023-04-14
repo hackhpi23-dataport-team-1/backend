@@ -9,7 +9,7 @@ from merger import merge_graphs
 from pprint import pprint
 load_dotenv()
 
-def enrich(graph):
+def enrich(graph: Graph):
     ip_vertices = [v for v in graph.vertices if v.kind == 'ip']
     file_vertices = [v for v in graph.vertices if v.kind == 'file']
 
@@ -26,7 +26,7 @@ def enrich(graph):
 
     
 
-def enrich_ip(vertex):
+def enrich_ip(vertex: Vertex):
     ip = vertex.attr['ip']
     try:
         # get IP info
@@ -77,7 +77,7 @@ def check_blocklist(input, ssl=False):
 
 
 
-def enrich_file(vertex):
+def enrich_file(vertex: Vertex):
     """
     makes a request to the VirusTotal API to get file info and adds
     VT_API_KEY as x-apikey to the header

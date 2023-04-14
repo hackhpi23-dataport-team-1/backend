@@ -10,11 +10,9 @@ class Vertex:
     "process",
     "file"
     """
-    def __init__(self, kind, attr={}):
-        self.id = hash_vid(kind, {kind:attr})
-        # for current work out that there is no real data available thus parsing gives None
-        if kind is None:
-            kind = "Dummy"        
+    def __init__(self, kind='Dummy', attr={}):
+        self.id = hash_vid(kind, attr)
+        # for current work out that there is no real data available thus parsing gives None    
         self.kind = kind
         self.score = None
         self.attr = attr
@@ -35,18 +33,16 @@ class Edge:
 
     "tcp", "udp"  between two ip nodes
     """
-    def __init__(self, source:Vertex,  target:Vertex, kind, attr={}):
+    def __init__(self, source:Vertex,  target:Vertex, kind='Dummy', attr={}):
         self.source = source
         self.target = target
-        # for current work out that there is no real data available thus parsing gives None
-        if kind is None:
-            kind = "Dummy"
         self.kind = kind
         self.attr = attr
-        self.id = hash_vid(kind, {kind:attr})
+        self.id = hash_vid(kind, attr)
 
     def add_attribute(self, dict):
         self.attr.update(dict)
+
 class Graph:
     def __init__(self, vertices=[], edges=[]):
         self.vertices = vertices
