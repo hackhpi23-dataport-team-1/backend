@@ -3,7 +3,6 @@ from datastructures import Vertex, Edge, Graph
 import re
 
 def get_md5(hashes):
-    print(hashes)
     hashh = re.search('MD5=([0-9A-F]+)', hashes).group(0)[4:]
     return str(hashh)
 
@@ -75,5 +74,17 @@ def parse(path):
             graph.add_vertex(from_vtx)
             graph.add_vertex(to_vtx)
             graph.add_edge(Edge(from_vtx, to_vtx, 'load'))
+        elif eid == 8:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['SourceProcessGuid'],
+                'Image': attrs['SourceImage']
+            })
+            to_vtx = Vertex('process', {
+                'ProcessGuid': attrs['TargetProcessGuid'],
+                'Image': attrs['TargetImage']
+            })
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'remote-thread'))
 
     return path
