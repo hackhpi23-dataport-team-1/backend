@@ -82,6 +82,6 @@ def analyze(case_id):
   # return graph in json format
   json_f = json.dumps(enriched_graph, default=lambda x: x.__dict__)
 
-  return jsonify({'graph': enriched_graph})
+  return json_f
 
 app.run()
