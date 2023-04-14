@@ -12,6 +12,9 @@ class Vertex:
     """
     def __init__(self, kind, attr={}):
         self.id = hash_vid(kind, {kind:attr})
+        # for current work out that there is no real data available thus parsing gives None
+        if kind is None:
+            kind = "Dummy"        
         self.kind = kind
         self.score = None
         self.attr = attr
@@ -35,6 +38,9 @@ class Edge:
     def __init__(self, source:Vertex,  target:Vertex, kind, attr={}):
         self.source = source
         self.target = target
+        # for current work out that there is no real data available thus parsing gives None
+        if kind is None:
+            kind = "Dummy"
         self.kind = kind
         self.attr = attr
         self.id = hash_vid(kind, {kind:attr})
