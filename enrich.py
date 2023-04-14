@@ -10,17 +10,17 @@ from pprint import pprint
 load_dotenv()
 
 def enrich(graph: Graph):
-    ip_vertices = [v for v in graph.vertices if v.kind == 'ip']
-    file_vertices = [v for v in graph.vertices if v.kind == 'file']
+    for vertex in graph.vertices:
+        if vertex.kind == 'ip':
+            enriched = enrich_ip(vertex)
+            merge_graphs(graph, enriched)
 
-    for vertex in ip_vertices:
-        enriched = enrich_ip(vertex)
-        merge_graphs(graph, enriched)
 
-    # enrich file vertices
-    for vertex in file_vertices:
-        enriched = enrich_file(vertex)
-        merge_graphs(graph, enriched)
+        if vertex.kind == 'file':
+            enriched = enrich_file(vertex)
+            pprint(enriched.to_dict())
+            merge_graphs(graph, enriched)
+
 
     return graph
 
@@ -104,8 +104,8 @@ def enrich_file(vertex: Vertex):
                     'malware_detect': key,
                     'malware_result': value
                 }
-        vertex.update(attrs)
-    return vertex
+        vertex.add_attribute(attrs)
+    return Graph(vertices = [vertex])
 
 
 
