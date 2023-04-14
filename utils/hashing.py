@@ -18,7 +18,8 @@ def hash_vid(kind, attrs) -> str:
 
         'set-created': 'identity',
         'spawn': 'identity',
-        'connect': 'identity'
+        'connect': 'identity',
+        'load': 'identity'
     }
 
     data = attrs[featuremap[kind]]
