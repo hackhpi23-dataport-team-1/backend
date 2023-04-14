@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from xmlParser import parse
 from enrich import *
 import json
+from score import update_score
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -50,8 +51,8 @@ def analyze(case_id):
   # enrich
   enriched_graph = enrich(graph)
 
-
   # TODO: get score
+  update_score(enriched_graph)
 
   # return graph in json format
   json_f = json.dumps(enriched_graph, default=lambda x: x.__dict__)
