@@ -283,3 +283,5 @@ $RECYCLE.BIN/
 *.lnk
 
 test.py
+
+uploads/
