@@ -18,7 +18,7 @@ def get_score(vertex: Vertex):
         "file" : random.randint(10, 30),
         "dns" : 55,
         'create': 65,
-        'key': random.randin(10, 30)
+        'key': random.randint(10, 30)
     }
 
     if vertex.kind in featuremap:
