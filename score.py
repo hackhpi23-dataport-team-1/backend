@@ -14,13 +14,11 @@ def get_score(vertex: Vertex):
         'domain': 30,
         'has_asn': 40,
         "process": 35,
-        "Dummy" : 5,
         "create" : 45,
-        "file" : random.randint(30, 50),
+        "file" : random.randint(10, 30),
         "dns" : 55,
-        'NetworkConnect': 60,
         'create': 65,
-        'key': 21
+        'key': random.randin(10, 30)
     }
 
     if vertex.kind in featuremap:
