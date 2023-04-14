@@ -9,7 +9,7 @@ cors = CORS(app)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'csv', 'xml'}
-app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
 @app.route('/case', methods=['POST'])
 @cross_origin()
@@ -23,15 +23,13 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
-
 @app.route('/case/<case_id>', methods=['POST'])
 @cross_origin()
 def upload(case_id):
   file = request.files['file']
   if file and allowed_file(file.filename):
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename, '_', case_id))
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], case_id + '_' + filename))
     return jsonify({'status': 200})
     
   return jsonify({'status': 500})
