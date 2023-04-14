@@ -8,7 +8,7 @@ flask = "*"
 ipwhois = "*"
 flask-cors = "*"
 requests = "*"
-python-dotenv"*"
+python-dotenv = "*"
 
 [dev-packages]
 

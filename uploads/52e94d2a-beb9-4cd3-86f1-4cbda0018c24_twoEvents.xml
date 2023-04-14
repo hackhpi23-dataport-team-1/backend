@@ -1,0 +1,58 @@
+<Root>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+   <System>
+      <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385f-c22a-43e0-bf4c-06f5698ffbd9}" />
+      <EventID>13</EventID>
+      <Version>2</Version>
+      <Level>4</Level>
+      <Task>13</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8000000000000000</Keywords>
+      <TimeCreated SystemTime="2021-09-30T14:34:09.4534793Z" />
+      <EventRecordID>1722721</EventRecordID>
+      <Correlation />
+      <Execution ProcessID="3064" ThreadID="3712" />
+      <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+      <Computer>DESKTOP-FPVDM4B</Computer>
+      <Security UserID="S-1-5-18" />
+   </System>
+   <EventData>
+      <Data Name="RuleName">-</Data>
+      <Data Name="EventType">SetValue</Data>
+      <Data Name="UtcTime">2021-09-30 14:34:09.448</Data>
+      <Data Name="ProcessGuid">{de1f7a01-cad9-6155-5200-000000000600}</Data>
+      <Data Name="ProcessId">2292</Data>
+      <Data Name="Image">C:\Windows\system32\svchost.exe</Data>
+      <Data Name="TargetObject">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Activation\Data\93\HostId</Data>
+      <Data Name="Details">Binary Data</Data>
+   </EventData>
+</Event>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+   <System>
+      <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385f-c22a-43e0-bf4c-06f5698ffbd9}" />
+      <EventID>13</EventID>
+      <Version>2</Version>
+      <Level>4</Level>
+      <Task>13</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8000000000000000</Keywords>
+      <TimeCreated SystemTime="2021-09-30T14:34:09.4536062Z" />
+      <EventRecordID>1722722</EventRecordID>
+      <Correlation />
+      <Execution ProcessID="3064" ThreadID="3712" />
+      <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+      <Computer>DESKTOP-FPVDM4B</Computer>
+      <Security UserID="S-1-5-18" />
+   </System>
+   <EventData>
+      <Data Name="RuleName">-</Data>
+      <Data Name="EventType">SetValue</Data>
+      <Data Name="UtcTime">2021-09-30 14:34:09.448</Data>
+      <Data Name="ProcessGuid">{de1f7a01-cad9-6155-5200-000000000600}</Data>
+      <Data Name="ProcessId">2292</Data>
+      <Data Name="Image">C:\Windows\system32\svchost.exe</Data>
+      <Data Name="TargetObject">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel\StateRepository\Cache\Activation\Data\93\Executable</Data>
+      <Data Name="Details">HxOutlook.exe</Data>
+   </EventData>
+</Event>
+</Root>
