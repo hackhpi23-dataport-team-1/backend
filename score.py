@@ -1,4 +1,5 @@
 from datastructures import Vertex, Graph
+import random
 
 def get_score(vertex: Vertex):
     # check if graph object is marked as malicious
@@ -15,7 +16,7 @@ def get_score(vertex: Vertex):
         "process": 35,
         "Dummy" : 5,
         "create" : 45,
-        "file" : 50,
+        "file" : random.randint(50, 60),
         "dns" : 55,
         'NetworkConnect': 60,
         'create': 65,
@@ -24,7 +25,7 @@ def get_score(vertex: Vertex):
     if vertex.kind in featuremap:
         return featuremap[vertex.kind]
 
-    return 0
+    return 10
 
 
 def update_score(graph: Graph):
