@@ -17,15 +17,13 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 
 def _corsify_actual_response(response):
     return response
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
 
-def _build_cors_preflight_response():
-    response = make_response()
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add("Access-Control-Allow-Headers", "*")
-    response.headers.add("Access-Control-Allow-Methods", "*")
-    return response
+# def _build_cors_preflight_response():
+#     response = make_response()
+#     response.headers.add("Access-Control-Allow-Origin", "*")
+#     response.headers.add("Access-Control-Allow-Headers", "*")
+#     response.headers.add("Access-Control-Allow-Methods", "*")
+#     return response
 
 @app.route('/case', methods=['POST'])
 @cross_origin()
@@ -70,7 +68,7 @@ def analyze(case_id):
   
   for filename in filenames:
     with open(os.path.join(app.config['UPLOAD_FOLDER'], case_id + '_' + filename), 'r') as f:
-      data = f.read()
+      data = "exampleData/newEvent.xml"
 
   # analyze data
   graph = parse(data)

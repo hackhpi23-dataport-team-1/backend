@@ -12,7 +12,9 @@ def hash_vid(kind, attrs) -> str:
         "Dummy" : "Dummy",
         "create" : "create",
         "file" : "file",
-        "dns" : "dns"
+        "dns" : "dns",
+        'NetworkConnect': 'process',
+        'create': 'level',
     }
 
     data = attrs[featuremap[kind]]

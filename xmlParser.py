@@ -6,6 +6,9 @@ from pprint import pprint
 import csv
 import json
 import _pickle as pickle
+import random
+import socket
+import struct
 
 from datastructures import *
 
@@ -205,53 +208,63 @@ def parseEvent2(parseElemArrs):
     vertices = []
     edges = []
     for elemDict in parseElemArrs:
-        # get name
-        eventName = elemDict["attrib"]["name"]
+        # get namex
         eventID = elemDict["attrib"]["value"]
         # get process ID
-        processGUID = elemDict["ProcessGuid"]
-        processID = elemDict["ProcessId"]
-        processNode = Vertex("process", elemDict)
+        process_name = elemDict['attrib']['rulename']
+        processNode = Vertex("process", {'process': process_name})
+        processNode.add_attribute(elemDict)
         vertices.append(processNode)
         if eventID == "1":
             pass
         elif eventID == "3":
             # network connection
-            SrcEntityAttr = {"SourceIp": elemDict["SourceIp"],"SourceHostname": elemDict["SourceHostname"],"SourcePort": elemDict["SourcePort"], "SourcePortName" : elemDict["SourcePortName"]}
-            DestEntityAttr = {"DestinationIp": elemDict["DestinationIp"],"DestinationHostname": elemDict["DestinationHostname"],"DestinationPort": elemDict["DestinationPort"], "DestinationPortName" : elemDict["DestinationPortName"]}
+            SrcEntityAttr = {"ip": elemDict["SourceIp"],"SourceHostname": elemDict["SourceHostname"],"SourcePort": elemDict["SourcePort"], "SourcePortName" : elemDict["SourcePortName"]}
+            DestEntityAttr = {"ip": elemDict["DestinationIp"],"DestinationHostname": elemDict["DestinationHostname"],"DestinationPort": elemDict["DestinationPort"], "DestinationPortName" : elemDict["DestinationPortName"]}
+            # if they don't exist, create them randomly for mocking
+            if SrcEntityAttr['ip'] == None:
+                SrcEntityAttr['ip'] = socket.inet_ntoa(struct.pack('>I', random.randint(1, 0xffffffff)))
+            if DestEntityAttr['ip'] == None:
+                DestEntityAttr['ip'] = socket.inet_ntoa(struct.pack('>I', random.randint(1, 0xffffffff)))
+            
+
             # create two vertices
-            srcNode = Vertex("ip",SrcEntityAttr)
+            srcNode = Vertex("ip", SrcEntityAttr)
             destNode = Vertex("ip", DestEntityAttr)
             vertices.append(srcNode)
             vertices.append(destNode)
+
             # create edges
+            pprint(elemDict["Protocol"])
             protocolName = elemDict["Protocol"]
-            protocolEdge = Edge(srcNode, destNode, protocolName, {**SrcEntityAttr, **DestEntityAttr})
+            protocolEdge = Edge(srcNode, destNode, process_name,  {'process': process_name})
             edges.append(protocolEdge)
             # connect process to the internet ids
-            processSrcEdge = Edge(processNode, srcNode, "create", elemDict)
-            processDestEdge = Edge(processNode, destNode, "create", elemDict)
+            processSrcEdge = Edge(processNode, srcNode, "create", {'level': elemDict['attrib']['level']})
+            processDestEdge = Edge(processNode, destNode, "create",  {'level': elemDict['attrib']['level']})
             edges.append(processSrcEdge)
             edges.append(processDestEdge)
 
-        elif eventID == "11":
-            # file create
-            # create a new vertex file
-            fileAttr = {"filename" : elemDict["TargetFilename"], "CreationUtcTime" : elemDict["CreationUtcTime"],"User": elemDict["User"]}
+        # elif eventID == "11":
+        #     # file create
+        #     # create a new vertex file
+        #     fileAttr = {"filename" : elemDict["TargetFilename"], "CreationUtcTime" : elemDict["CreationUtcTime"],"User": elemDict["User"]}
 
-            fileNode = Vertex("file",fileAttr)
-            vertices.append(fileNode)
-            # connect edge
-            createEdge = Edge(processNode, fileNode, "create", fileAttr)
-            edges.append(createEdge)
-        elif eventID == "22":
-            # DNS event
-            dnsAttr = {"QueryName" : elemDict["QueryName"], "QueryStatus" : elemDict["QueryStatus"], "QueryResults": elemDict["QueryResults"], "Image" : elemDict["Image"], "User" : elemDict["User"]}
+        #     pprint(elemDict)
+
+        #     fileNode = Vertex("file", fileAttr)
+        #     vertices.append(fileNode)
+        #     # connect edge
+        #     createEdge = Edge(processNode, fileNode, "create", fileAttr)
+        #     edges.append(createEdge)
+        # elif eventID == "22":
+        #     # DNS event
+        #     dnsAttr = {"QueryName" : elemDict["QueryName"], "QueryStatus" : elemDict["QueryStatus"], "QueryResults": elemDict["QueryResults"], "Image" : elemDict["Image"], "User" : elemDict["User"]}
             
-            dnsNode = Vertex("dns", dnsAttr)
-            vertices.append(fileNode)
-            createEdge = Edge(processNode, dnsNode, "create", dnsAttr)
-            edges.append(createEdge)
+        #     dnsNode = Vertex("dns", dnsAttr)
+        #     vertices.append(fileNode)
+        #     createEdge = Edge(processNode, dnsNode, "create", dnsAttr)
+        #     edges.append(createEdge)
     g = Graph(vertices, edges)
     return g
 
