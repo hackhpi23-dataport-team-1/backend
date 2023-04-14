@@ -74,14 +74,14 @@ def analyze(case_id):
   graph = parse(data)
 
   # enrich
-  # enriched_graph = enrich(graph)
+  enriched_graph = enrich(graph)
 
   # TODO: get score
-  # update_score(enriched_graph)
+  update_score(enriched_graph)
 
   # return graph in json format
-  json_f = json.dumps(graph, default=lambda x: x.__dict__)
+  json_f = json.dumps(enriched_graph, default=lambda x: x.__dict__)
 
-  return jsonify({'graph': json_f, 'data': data})
+  return jsonify({'graph': json_f})
 
 app.run()

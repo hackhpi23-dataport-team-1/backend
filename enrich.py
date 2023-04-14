@@ -15,7 +15,7 @@ def enrich(graph: Graph):
 
     for vertex in ip_vertices:
         enriched = enrich_ip(vertex)
-        merge_graphs(g, enriched)
+        merge_graphs(graph, enriched)
 
     # enrich file vertices
     for vertex in file_vertices:

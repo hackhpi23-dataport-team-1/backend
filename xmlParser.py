@@ -235,7 +235,6 @@ def parseEvent2(parseElemArrs):
             vertices.append(destNode)
 
             # create edges
-            pprint(elemDict["Protocol"])
             protocolName = elemDict["Protocol"]
             protocolEdge = Edge(srcNode, destNode, process_name,  {'process': process_name})
             edges.append(protocolEdge)
