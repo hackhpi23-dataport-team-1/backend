@@ -1,1 +1,40 @@
-<Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'><System><Provider Name='Microsoft-Windows-Sysmon' Guid='{5770385f-c22a-43e0-bf4c-06f5698ffbd9}'/><EventID>3</EventID><Version>5</Version><Level>4</Level><Task>3</Task><Opcode>0</Opcode><Keywords>0x8000000000000000</Keywords><TimeCreated SystemTime='2021-09-30T14:34:15.9554400Z'/><EventRecordID>1735811</EventRecordID><Correlation/><Execution ProcessID='3064' ThreadID='3720'/><Channel>Microsoft-Windows-Sysmon/Operational</Channel><Computer>DESKTOP-FPVDM4B</Computer><Security UserID='S-1-5-18'/></System><EventData><Data Name='RuleName'>-</Data><Data Name='UtcTime'>2021-09-30 14:34:14.566</Data><Data Name='ProcessGuid'>{de1f7a01-cac8-6155-eb03-000000000000}</Data><Data Name='ProcessId'>4</Data><Data Name='Image'>System</Data><Data Name='User'>NT-AUTORITÄT\SYSTEM</Data><Data Name='Protocol'>udp</Data><Data Name='Initiated'>true</Data><Data Name='SourceIsIpv6'>false</Data><Data Name='SourceIp'>192.168.0.3</Data><Data Name='SourceHostname'>DESKTOP-FPVDM4B</Data><Data Name='SourcePort'>137</Data><Data Name='SourcePortName'>netbios-ns</Data><Data Name='DestinationIsIpv6'>false</Data><Data Name='DestinationIp'>192.168.0.1</Data><Data Name='DestinationHostname'>-</Data><Data Name='DestinationPort'>137</Data><Data Name='DestinationPortName'>netbios-ns</Data></EventData></Event>
+<Root>
+<?xml version="1.0" encoding="UTF-8"?>
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+   <System>
+      <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385f-c22a-43e0-bf4c-06f5698ffbd9}" />
+      <EventID>3</EventID>
+      <Version>5</Version>
+      <Level>4</Level>
+      <Task>3</Task>
+      <Opcode>0</Opcode>
+      <Keywords>0x8000000000000000</Keywords>
+      <TimeCreated SystemTime="2021-09-30T14:34:15.9554400Z" />
+      <EventRecordID>1735811</EventRecordID>
+      <Correlation />
+      <Execution ProcessID="3064" ThreadID="3720" />
+      <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+      <Computer>DESKTOP-FPVDM4B</Computer>
+      <Security UserID="S-1-5-18" />
+   </System>
+   <EventData>
+      <Data Name="RuleName">-</Data>
+      <Data Name="UtcTime">2021-09-30 14:34:14.566</Data>
+      <Data Name="ProcessGuid">{de1f7a01-cac8-6155-eb03-000000000000}</Data>
+      <Data Name="ProcessId">4</Data>
+      <Data Name="Image">System</Data>
+      <Data Name="User">NT-AUTORITÄT\SYSTEM</Data>
+      <Data Name="Protocol">udp</Data>
+      <Data Name="Initiated">true</Data>
+      <Data Name="SourceIsIpv6">false</Data>
+      <Data Name="SourceIp">192.168.0.3</Data>
+      <Data Name="SourceHostname">DESKTOP-FPVDM4B</Data>
+      <Data Name="SourcePort">137</Data>
+      <Data Name="SourcePortName">netbios-ns</Data>
+      <Data Name="DestinationIsIpv6">false</Data>
+      <Data Name="DestinationIp">192.168.0.1</Data>
+      <Data Name="DestinationHostname">-</Data>
+      <Data Name="DestinationPort">137</Data>
+      <Data Name="DestinationPortName">netbios-ns</Data>
+   </EventData>
+</Event></Root>
