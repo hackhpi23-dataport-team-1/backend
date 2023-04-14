@@ -22,7 +22,8 @@ def hash_vid(kind, attrs) -> str:
         'remote-thread': 'identity',
         'create': 'identity',
         'create-key': 'identity',
-        'delete-key': 'identity'
+        'delete-key': 'identity',
+        'set-key': 'identity'
     }
 
     data = attrs[featuremap[kind]]

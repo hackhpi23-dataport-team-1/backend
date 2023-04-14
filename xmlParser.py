@@ -113,5 +113,17 @@ def parse(path):
                 graph.add_edge(Edge(from_vtx, to_vtx, 'create-key'))
             else:
                 graph.add_edge(Edge(from_vtx, to_vtx, 'delete-key'))
+        elif eid == 13:
+            from_vtx = Vertex('process', {
+                'ProcessGuid': attrs['ProcessGuid'],
+                'Image': attrs['Image']
+            })
+            to_vtx = Vertex('key', {
+                'TargetObject': attrs['TargetObject']
+            })
 
-    return path
+            graph.add_vertex(from_vtx)
+            graph.add_vertex(to_vtx)
+            graph.add_edge(Edge(from_vtx, to_vtx, 'set-key'))
+
+    return graph
