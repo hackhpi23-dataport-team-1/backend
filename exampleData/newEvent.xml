@@ -1,0 +1,55 @@
+<events>
+    <event name="SYSMONEVENT_NETWORK_CONNECT" value="3" level="Informational" template="Network connection detected" rulename="NetworkConnect" version="5">
+        <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+        <data name="ProcessGuid" inType="win:GUID" />
+        <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+        <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+        <data name="User" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Protocol" inType="win:UnicodeString" outType="xs:string" />
+        <data name="Initiated" inType="win:Boolean" />
+        <data name="SourceIsIpv6" inType="win:Boolean" />
+        <data name="SourceIp" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourceHostname" inType="win:UnicodeString" outType="xs:string" />
+        <data name="SourcePort" inType="win:UInt16" />
+        <data name="SourcePortName" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationIsIpv6" inType="win:Boolean" />
+        <data name="DestinationIp" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationHostname" inType="win:UnicodeString" outType="xs:string" />
+        <data name="DestinationPort" inType="win:UInt16" />
+        <data name="DestinationPortName" inType="win:UnicodeString" outType="xs:string" />
+        </event>
+    <event name="SYSMONEVENT_FILE_CREATE" value="11" level="Informational" template="File created" rulename="FileCreate" ruledefault="exclude" version="2">
+    <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+    <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+    <data name="ProcessGuid" inType="win:GUID" />
+    <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+    <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+    <data name="TargetFilename" inType="win:UnicodeString" outType="xs:string" />
+    <data name="CreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+    <data name="User" inType="win:UnicodeString" outType="xs:string" />
+    </event>
+<event name="SYSMONEVENT_FILE_CREATE_STREAM_HASH" value="15" level="Informational" template="File stream created" rulename="FileCreateStreamHash" ruledefault="exclude" version="2">
+    <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+    <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+    <data name="ProcessGuid" inType="win:GUID" />
+    <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+    <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+    <data name="TargetFilename" inType="win:UnicodeString" outType="xs:string" />
+    <data name="CreationUtcTime" inType="win:UnicodeString" outType="xs:string" />
+    <data name="Hash" inType="win:UnicodeString" outType="xs:string" />
+    <data name="Contents" inType="win:UnicodeString" outType="xs:string" />
+    <data name="User" inType="win:UnicodeString" outType="xs:string" />
+</event>
+<event name="SYSMONEVENT_DNS_QUERY" value="22" level="Informational" template="Dns query" rulename="DnsQuery" ruledefault="exclude" version="5">
+    <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+    <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+    <data name="ProcessGuid" inType="win:GUID" />
+    <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+    <data name="QueryName" inType="win:UnicodeString" outType="xs:string" />
+    <data name="QueryStatus" inType="win:UnicodeString" outType="xs:string" />
+    <data name="QueryResults" inType="win:UnicodeString" outType="xs:string" />
+    <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+    <data name="User" inType="win:UnicodeString" outType="xs:string" />
+    </event>    
+</events>

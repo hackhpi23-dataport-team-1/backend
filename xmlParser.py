@@ -4,7 +4,7 @@ from io import StringIO
 import sys,os
 import csv
 
-from buildGraph import *
+from datastructures import *
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -234,7 +234,7 @@ def parseEvent2(parseElemArrs):
         elif eventID == "11":
             # file create
             # create a new vertex file
-            fileAttr = {"filename" : elemDict["TargetFilename"], "CreationUtcTime" : elemDict["CreationUtcTime"], "Hash" : elemDict["Hash"], "Contents": elemDict["Contents"], "User": elemDict["User"]}
+            fileAttr = {"filename" : elemDict["TargetFilename"], "CreationUtcTime" : elemDict["CreationUtcTime"],"User": elemDict["User"]}
 
             fileNode = Vertex("file",fileAttr)
             vertices.append(fileNode)
