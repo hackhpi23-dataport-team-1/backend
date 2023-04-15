@@ -11,7 +11,11 @@ def parse(path):
 
     file = open(path, 'r')
     lines = file.readlines()
+    i = 1
     for line in lines:
+        if i % 20 == 0:
+            print(str(round((i / len(lines) * 100),2)) + " %")
+        i = i + 1
         root = ET.ElementTree(ET.fromstring(line.replace(" xmlns='http://schemas.microsoft.com/win/2004/08/events/event'", '')))
 
         # Get event ID
